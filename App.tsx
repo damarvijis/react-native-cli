@@ -1,118 +1,120 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- */
+import React from "react"
+import { NavigationContainer } from "@react-navigation/native"
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs"
+import { Provider as PaperProvider, Button, Card, Text, TextInput } from "react-native-paper"
+import styled from "styled-components/native"
+import Icon from "react-native-vector-icons/MaterialCommunityIcons"
+import EventScreen from "./internal/Event/screen"
 
-import React from 'react';
-import type {PropsWithChildren} from 'react';
-import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  useColorScheme,
-  View,
-} from 'react-native';
+const Tab = createBottomTabNavigator()
 
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
+const HomeScreen = () => (
+  <Container>
+    <TextInput placeholder="Search party" />
+    <EventCard>
+      <Card.Cover source={{ uri: "https://example.com/event-image.jpg" }} />
+      <Card.Content>
+        <Title>Saturday Night</Title>
+        <Text>Entry $17.5</Text>
+        <Text>Ladies Free</Text>
+        <Text>Welcome Drinks</Text>
+      </Card.Content>
+    </EventCard>
+    <FindBestPlace>
+      <Button icon="facebook" mode="contained">
+        Nightclub
+      </Button>
+      <Button icon="facebook" mode="contained">
+        KTV
+      </Button>
+      <Button icon="facebook" mode="contained">
+        Pregames
+      </Button>
+      <Button icon="facebook" mode="contained">
+        Bar
+      </Button>
+    </FindBestPlace>
+  </Container>
+)
 
-type SectionProps = PropsWithChildren<{
-  title: string;
-}>;
+const App = () => (
+  <PaperProvider>
+    <NavigationContainer>
+      <Tab.Navigator
+        screenOptions={({ route }) => ({
+          headerShown: false,
+          tabBarIcon: ({ focused, color, size }) => {
+            let iconName
 
-function Section({children, title}: SectionProps): React.JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
-  return (
-    <View style={styles.sectionContainer}>
-      <Text
-        style={[
-          styles.sectionTitle,
-          {
-            color: isDarkMode ? Colors.white : Colors.black,
+            if (route.name === "Nightlife") {
+              iconName = focused ? "moon-waning-crescent" : "moon-waning-crescent-outline"
+            } else if (route.name === "Event") {
+              iconName = focused ? "calendar" : "calendar-outline"
+            } else if (route.name === "Friends") {
+              iconName = focused ? "account-group" : "account-group-outline"
+            } else if (route.name === "Profile") {
+              iconName = focused ? "account" : "account-outline"
+            } else if (route.name === "Order") {
+              iconName = focused ? "qrcode-scan" : "qrcode"
+            } else {
+              iconName = focused ? "qrcode-scan" : "qrcode"
+            }
+
+            return <Icon name={iconName} size={size} color={color} />
           },
-        ]}>
-        {title}
-      </Text>
-      <Text
-        style={[
-          styles.sectionDescription,
-          {
-            color: isDarkMode ? Colors.light : Colors.dark,
+          tabBarActiveTintColor: "#04FF98",
+          tabBarInactiveTintColor: "#fff",
+          tabBarStyle: {
+            backgroundColor: "#1C1C22",
+            paddingVertical: 5,
+            height: 60,
           },
-        ]}>
-        {children}
-      </Text>
-    </View>
-  );
-}
+          tabBarLabelStyle: {
+            fontSize: 12,
+          },
+        })}
+        // screenOptions={{
+        //   headerShown: false,
+        // }}
+      >
+        <Tab.Screen name="Nightlife" component={HomeScreen} options={{ tabBarLabel: "Nightlife" }} />
+        <Tab.Screen name="Event" component={EventScreen} options={{ tabBarLabel: "Event" }} />
+        <Tab.Screen name="Friends" component={EventScreen} options={{ tabBarLabel: "Friends" }} />
+        <Tab.Screen name="Profile" component={EventScreen} options={{ tabBarLabel: "Profile" }} />
+        <Tab.Screen name="Order" component={EventScreen} options={{ tabBarLabel: "Order" }} />
+      </Tab.Navigator>
+    </NavigationContainer>
+  </PaperProvider>
+)
 
-function App(): React.JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
+const Container = styled.View`
+  flex: 1;
+  padding: 16px;
+  background-color: #1c1c22;
+`
 
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-  };
+const SearchBar = styled.TextInput`
+  padding: 8px;
+  margin-bottom: 16px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  color: #fff;
+`
 
-  return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar
-        barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-        backgroundColor={backgroundStyle.backgroundColor}
-      />
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}>
-        <Header />
-        <View
-          style={{
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
-          }}>
-          <Section title="Step One">
-            Edit <Text style={styles.highlight}>App.tsx</Text> to change this
-            screen and then come back to see your edits.
-          </Section>
-          <Section title="See Your Changes">
-            <ReloadInstructions />
-          </Section>
-          <Section title="Debug">
-            <DebugInstructions />
-          </Section>
-          <Section title="Learn More">
-            Read the docs to discover what to do next:
-          </Section>
-          <LearnMoreLinks />
-        </View>
-      </ScrollView>
-    </SafeAreaView>
-  );
-}
+const EventCard = styled(Card)`
+  margin-bottom: 16px;
+`
 
-const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-  },
-  highlight: {
-    fontWeight: '700',
-  },
-});
+const Title = styled(Text)`
+  font-size: 24px;
+  font-weight: bold;
+  color: #04ff98;
+`
 
-export default App;
+const FindBestPlace = styled.View`
+  flex-direction: row;
+  justify-content: space-around;
+  margin-bottom: 16px;
+`
+
+export default App
