@@ -1,41 +1,12 @@
 import React from "react"
 import { NavigationContainer } from "@react-navigation/native"
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs"
-import { Provider as PaperProvider, Button, Card, Text, TextInput } from "react-native-paper"
-import styled from "styled-components/native"
-import Icon from "react-native-vector-icons/MaterialCommunityIcons"
+import { Provider as PaperProvider } from "react-native-paper"
+import FeatherIcon from "react-native-vector-icons/Feather"
 import EventScreen from "./internal/Event/screen"
+import HomeScreen from "./internal/Home/screen"
 
 const Tab = createBottomTabNavigator()
-
-const HomeScreen = () => (
-  <Container>
-    <TextInput placeholder="Search party" />
-    <EventCard>
-      <Card.Cover source={{ uri: "https://example.com/event-image.jpg" }} />
-      <Card.Content>
-        <Title>Saturday Night</Title>
-        <Text>Entry $17.5</Text>
-        <Text>Ladies Free</Text>
-        <Text>Welcome Drinks</Text>
-      </Card.Content>
-    </EventCard>
-    <FindBestPlace>
-      <Button icon="facebook" mode="contained">
-        Nightclub
-      </Button>
-      <Button icon="facebook" mode="contained">
-        KTV
-      </Button>
-      <Button icon="facebook" mode="contained">
-        Pregames
-      </Button>
-      <Button icon="facebook" mode="contained">
-        Bar
-      </Button>
-    </FindBestPlace>
-  </Container>
-)
 
 const App = () => (
   <PaperProvider>
@@ -47,20 +18,20 @@ const App = () => (
             let iconName
 
             if (route.name === "Nightlife") {
-              iconName = focused ? "moon-waning-crescent" : "moon-waning-crescent-outline"
+              iconName = "moon"
             } else if (route.name === "Event") {
-              iconName = focused ? "calendar" : "calendar-outline"
+              iconName = "calendar"
             } else if (route.name === "Friends") {
-              iconName = focused ? "account-group" : "account-group-outline"
+              iconName = "users"
             } else if (route.name === "Profile") {
-              iconName = focused ? "account" : "account-outline"
+              iconName = "user"
             } else if (route.name === "Order") {
-              iconName = focused ? "qrcode-scan" : "qrcode"
+              iconName = "grid"
             } else {
-              iconName = focused ? "qrcode-scan" : "qrcode"
+              iconName = "grid"
             }
 
-            return <Icon name={iconName} size={size} color={color} />
+            return <FeatherIcon name={iconName} size={size} color={color} />
           },
           tabBarActiveTintColor: "#04FF98",
           tabBarInactiveTintColor: "#fff",
@@ -73,9 +44,6 @@ const App = () => (
             fontSize: 12,
           },
         })}
-        // screenOptions={{
-        //   headerShown: false,
-        // }}
       >
         <Tab.Screen name="Nightlife" component={HomeScreen} options={{ tabBarLabel: "Nightlife" }} />
         <Tab.Screen name="Event" component={EventScreen} options={{ tabBarLabel: "Event" }} />
@@ -86,35 +54,5 @@ const App = () => (
     </NavigationContainer>
   </PaperProvider>
 )
-
-const Container = styled.View`
-  flex: 1;
-  padding: 16px;
-  background-color: #1c1c22;
-`
-
-const SearchBar = styled.TextInput`
-  padding: 8px;
-  margin-bottom: 16px;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  color: #fff;
-`
-
-const EventCard = styled(Card)`
-  margin-bottom: 16px;
-`
-
-const Title = styled(Text)`
-  font-size: 24px;
-  font-weight: bold;
-  color: #04ff98;
-`
-
-const FindBestPlace = styled.View`
-  flex-direction: row;
-  justify-content: space-around;
-  margin-bottom: 16px;
-`
 
 export default App

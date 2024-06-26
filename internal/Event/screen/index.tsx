@@ -1,21 +1,23 @@
-import { ScrollView, StyleSheet, Text } from "react-native"
+import { ScrollView } from "react-native"
+import { Text } from "react-native-paper"
+import styled from "styled-components/native"
 
 const EventScreen = () => (
-  <ScrollView contentInsetAdjustmentBehavior="automatic">
-    <Text style={styles.text}>EventScreen</Text>
-    <Text style={styles.text}>EventScreen</Text>
-    <Text style={styles.text}>EventScreen</Text>
-    <Text style={styles.text}>EventScreen</Text>
-    <Text style={styles.text}>EventScreen</Text>
-    <Text style={styles.text}>EventScreen</Text>
-    <Text style={styles.text}>EventScreen</Text>
-  </ScrollView>
+  <Container>
+    <ScrollView contentInsetAdjustmentBehavior="automatic">
+      <Description>EventScreen</Description>
+    </ScrollView>
+  </Container>
 )
 
-const styles = StyleSheet.create({
-  text: {
-    color: "#FBFDFF",
-  },
-})
+const Container = styled.View`
+  flex: 1;
+  padding: 16px;
+  background-color: #1c1c22;
+`
+
+const Description = styled(Text)`
+  color: #fff;
+`
 
 export default EventScreen
