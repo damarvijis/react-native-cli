@@ -2,12 +2,14 @@ import { Text } from "react-native"
 import { Button, Card, TextInput } from "react-native-paper"
 import styled from "styled-components/native"
 
-const HomeScreen = () => (
+const NightlifeScreen = () => (
   <Container>
     <Text>Bomber</Text>
     <TextInput placeholder="Search party" />
     <EventCard>
-      <Card.Cover source={{ uri: "https://example.com/event-image.jpg" }} />
+      <Card.Cover
+        source={{ uri: "https://unsplash.com/photos/neon-sign-reading-bar-cocktails-dreams-disco-party-9P1pZy3gwxg" }}
+      />
       <Card.Content>
         <Title>Saturday Night</Title>
         <Text>Entry $17.5</Text>
@@ -15,6 +17,7 @@ const HomeScreen = () => (
         <Text>Welcome Drinks</Text>
       </Card.Content>
     </EventCard>
+
     <FindBestPlace>
       <Button icon="beer" mode="contained">
         Nightclub
@@ -63,4 +66,4 @@ const FindBestPlace = styled.View`
   margin-bottom: 16px;
 `
 
-export default HomeScreen
+export default NightlifeScreen

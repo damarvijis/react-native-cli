@@ -4,7 +4,10 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs"
 import { Provider as PaperProvider } from "react-native-paper"
 import FeatherIcon from "react-native-vector-icons/Feather"
 import EventScreen from "./internal/Event/screen"
-import HomeScreen from "./internal/Home/screen"
+import NightlifeScreen from "./internal/Nightlife/screen"
+import FriendScreen from "./internal/Friend/screen"
+import OrderScreen from "./internal/Order/screen"
+import ProfileScreen from "./internal/Profile/screen"
 
 const Tab = createBottomTabNavigator()
 
@@ -45,11 +48,11 @@ const App = () => (
           },
         })}
       >
-        <Tab.Screen name="Nightlife" component={HomeScreen} options={{ tabBarLabel: "Nightlife" }} />
+        <Tab.Screen name="Nightlife" component={NightlifeScreen} options={{ tabBarLabel: "Nightlife" }} />
         <Tab.Screen name="Event" component={EventScreen} options={{ tabBarLabel: "Event" }} />
-        <Tab.Screen name="Friends" component={EventScreen} options={{ tabBarLabel: "Friends" }} />
-        <Tab.Screen name="Profile" component={EventScreen} options={{ tabBarLabel: "Profile" }} />
-        <Tab.Screen name="Order" component={EventScreen} options={{ tabBarLabel: "Order" }} />
+        <Tab.Screen name="Friends" component={FriendScreen} options={{ tabBarLabel: "Friends" }} />
+        <Tab.Screen name="Profile" component={ProfileScreen} options={{ tabBarLabel: "Profile" }} />
+        <Tab.Screen name="Order" component={OrderScreen} options={{ tabBarLabel: "Order" }} />
       </Tab.Navigator>
     </NavigationContainer>
   </PaperProvider>
